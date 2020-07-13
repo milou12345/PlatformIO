@@ -21,7 +21,7 @@ void setup(){
 
   //Serial
   Serial.begin(115200);
-  
+  test;
 }
  
 void loop(){
