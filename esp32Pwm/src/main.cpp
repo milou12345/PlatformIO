@@ -4,7 +4,7 @@
 const int pwmPin = 15;  
 const int currentSensPin = 13;
 // setting PWM properties
-const int freq = 100000;
+const int freq = 10000;
 const int ledChannel = 0;
 const int resolution = 8;
 int pwm=50;
@@ -21,7 +21,6 @@ void setup(){
 
   //Serial
   Serial.begin(115200);
-  test;
 }
  
 void loop(){
