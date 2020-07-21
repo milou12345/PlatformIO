@@ -1,23 +1,15 @@
 #ifndef __SENSOR_H__
 #define __SENSOR_H__
 #include <Arduino.h>
-class sensor
+
+class Sensor
 {
 private:
-    int  adcValue;
+    int adcValue;
     byte pin;
-
 public:
-    sensor(byte pin);
-    ~sensor();
+    Sensor(byte pin);
+    void init();
+    int getSensorValue();
 };
-
-sensor::sensor(/* args */)
-{
-}
-
-sensor::~sensor()
-{
-}
-
-#endif // __SENSOR_H__
+#endif 

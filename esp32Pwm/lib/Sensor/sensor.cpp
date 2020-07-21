@@ -1,5 +1,19 @@
 #include "sensor.h"
-sensor::sensor(byte pin) 
+Sensor::Sensor(byte pin) 
 {
     this->pin=pin;
+    init();
+}
+
+void Sensor::init() 
+{
+    pinMode(pin, INPUT);
+    adcValue=analogRead(pin);
+
+}
+
+int Sensor::getSensorValue() 
+{
+    adcValue=analogRead(pin);
+    return adcValue;
 }
