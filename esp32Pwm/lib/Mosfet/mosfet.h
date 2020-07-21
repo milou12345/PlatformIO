@@ -9,6 +9,7 @@ class Mosfet {
     
   public:
     Mosfet(byte pin);
+    Mosfet();
     void init();
     void switchOn();
     void switchOff();

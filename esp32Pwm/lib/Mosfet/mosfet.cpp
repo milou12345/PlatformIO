@@ -5,6 +5,10 @@ Mosfet::Mosfet(byte pin)
     init();
 }
 
+Mosfet::Mosfet() 
+{
+}
+
 void Mosfet::init() 
 {
     pinMode(pin, OUTPUT);

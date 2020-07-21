@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "Filter.h"
-#include </home/milou/Documents/PlatformIO/esp32Pwm/.pio/libdeps/esp32doit-devkit-v1/Arduino-PID-Library/PID_v1/PID_v1.h>
+#include <../.pio/libdeps/esp32doit-devkit-v1/Arduino-PID-Library/PID_v1/PID_v1.h>
 #include "mosfet.h"
 #include "MosfetMatrix.h"
 // Defines
@@ -28,9 +28,8 @@ bool hotSwapEnable = 0;
 //Specify the links and initial tuning parameters
 double Kp=0.1, Ki=0.2, Kd=0;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
-Mosfet mosfet1(mosfet1Pin);
-Mosfet mosfet2(mosfet2Pin);
-MosfetMatrix matrix(mosfet1,mosfet2);
+
+MosfetMatrix matrix(mosfet1Pin,mosfet2Pin);
 
 int hotSwap(double currentMeasure){ // Function for the HotSwap event
 if (hotSwapEnable==true)
@@ -94,7 +93,7 @@ void loop(){
   //Wirte pwm
   ledcWrite(ledChannel, Output);
   //ADCFilter.Filter(sensVal);
-  //hotSwap(Input);
+  hotSwap(Input);
 }
 
 
