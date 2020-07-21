@@ -2,6 +2,7 @@
 #include "Filter.h"
 #include </home/milou/Documents/PlatformIO/esp32Pwm/.pio/libdeps/esp32doit-devkit-v1/Arduino-PID-Library/PID_v1/PID_v1.h>
 #include "mosfet.h"
+#include "MosfetMatrix.h"
 // Defines
 #define PIN_INPUT 13 //Current Mesaurment
 #define pwmPin1 15   //PWM Output 1
@@ -29,6 +30,7 @@ double Kp=0.1, Ki=0.2, Kd=0;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 Mosfet mosfet1(mosfet1Pin);
 Mosfet mosfet2(mosfet2Pin);
+MosfetMatrix matrix(mosfet1,mosfet2);
 
 int hotSwap(double currentMeasure){ // Function for the HotSwap event
 if (hotSwapEnable==true)
@@ -36,8 +38,7 @@ if (hotSwapEnable==true)
     if ((currentMeasure<=hotSwapLimit))
     {
       // Switch Mosfets for Hotswap
-      mosfet1.switchOff();
-      mosfet2.switchOn();
+      matrix.switchToPS2();
       
       // PWM to 100% till current rises to wanted value
       do

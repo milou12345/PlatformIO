@@ -1,6 +1,8 @@
 #ifndef __MOSFETMATRIX_H__
 #define __MOSFETMATRIX_H__
-#include "mosfet.h"
+#include <Arduino.h>
+#include <mosfet.h>
+
 class MosfetMatrix
 {
 private:
@@ -11,6 +13,8 @@ byte switchPosition; // Which switch combination is conduction
 public:
     MosfetMatrix(Mosfet mos1,Mosfet mos2);
     void switchPS();
+    void switchToPS1();
+    void switchToPS2();
     byte getSwitchPos();
 };
 

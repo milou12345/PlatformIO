@@ -39,6 +39,21 @@ void MosfetMatrix::switchPS()
     }
 }
 
+void MosfetMatrix::switchToPS1() 
+{
+    mos1.switchOn();
+    mos2.switchOff();
+    switchPosition=1;
+    
+}
+
+void MosfetMatrix::switchToPS2() 
+{
+    mos1.switchOff();
+    mos2.switchOn();
+    switchPosition=0;
+}
+
 byte MosfetMatrix::getSwitchPos() 
 {
     return switchPosition;
