@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Filter.h"
 #include </home/milou/Documents/PlatformIO/esp32Pwm/.pio/libdeps/esp32doit-devkit-v1/Arduino-PID-Library/PID_v1/PID_v1.h>
-
+#include "mosfet.h"
 // Defines
 #define PIN_INPUT 13 //Current Mesaurment
 #define pwmPin1 15   //PWM Output 1
@@ -11,20 +11,24 @@
 #define resolution 8
 #define eneablePin 12
 #define maxPwm pow(2, resolution)
-#define hotSwapMosfet1 11 
-#define hotSwapMosfet2 10
+#define mosfet1Pin 11 
+#define mosfet2Pin 10
 #define sollwert 150
 #define freq 100000
+#define hotSwapEnablePin 9
+#define onboardLed 2
 
 #define hotSwapLimit 100
 
 
 //Define Variables we'll be connecting to
 double Setpoint=sollwert, Input, Output;
-bool hotSwapEnable = 1;
+bool hotSwapEnable = 0;
 //Specify the links and initial tuning parameters
 double Kp=0.1, Ki=0.2, Kd=0;
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+Mosfet mosfet1(mosfet1Pin);
+Mosfet mosfet2(mosfet2Pin);
 
 int hotSwap(double currentMeasure){ // Function for the HotSwap event
 if (hotSwapEnable==true)
@@ -32,8 +36,8 @@ if (hotSwapEnable==true)
     if ((currentMeasure<=hotSwapLimit))
     {
       // Switch Mosfets for Hotswap
-      digitalWrite(hotSwapMosfet1,LOW); 
-      digitalWrite(hotSwapMosfet2,HIGH);
+      mosfet1.switchOff();
+      mosfet2.switchOn();
       
       // PWM to 100% till current rises to wanted value
       do
@@ -44,10 +48,11 @@ if (hotSwapEnable==true)
       return 1;
       
     }
-    return 0;
+    
   }
-
+  return 0;
 }
+
 
 // Create a new exponential filter with a weight of 5 and an initial value of 0. 
 //ExponentialFilter<long> ADCFilter(5, 0);
@@ -64,10 +69,10 @@ void setup(){
   pinMode(eneablePin, OUTPUT);
   digitalWrite(eneablePin,HIGH);
 
-  //Hot-Swap Matrix Mosfet Ini
-  pinMode(hotSwapMosfet1, OUTPUT);
-  pinMode(hotSwapMosfet2, OUTPUT);
 
+
+  //Onboard LED output 
+  pinMode(onboardLed,OUTPUT);
   //initialize the variables we're linked to for PID
   Input = analogRead(PIN_INPUT);
 
@@ -78,12 +83,17 @@ void setup(){
 }
  
 void loop(){
+  //Aktivatew HotSwap with switch
+  if (digitalRead(hotSwapEnablePin)==true) hotSwapEnable=true;
+  if (hotSwapEnable==true) digitalWrite(onboardLed,HIGH);
+  
+  
   Input = analogRead(PIN_INPUT);
   myPID.Compute();
   //Wirte pwm
   ledcWrite(ledChannel, Output);
   //ADCFilter.Filter(sensVal);
-  hotSwap(Input);
+  //hotSwap(Input);
 }
 
 
