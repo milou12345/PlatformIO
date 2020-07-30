@@ -17,7 +17,9 @@ public:
     void switchToPS1();
     void switchToPS2();
     byte getSwitchPos();
-    void get
+    bool getHotSwapEnable();
+    void setHotSwapEnable();
+
 };
 
 #endif // __MOSFETMATRIX_H__

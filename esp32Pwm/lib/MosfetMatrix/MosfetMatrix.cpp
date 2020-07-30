@@ -5,7 +5,6 @@ MosfetMatrix::MosfetMatrix(byte pin1, byte pin2)
 
     mos1 = Mosfet(pin1);
     mos2 = Mosfet(pin2);
-    this.
 
     switch (mos1.getState())
     {
@@ -60,12 +59,12 @@ byte MosfetMatrix::getSwitchPos()
     return switchPosition;
 }
 
-bool isHotSwapEnable()
+bool MosfetMatrix::getHotSwapEnable()
 {
-    return this.hotSwapEnable;
+    return hotSwapEnable;
 }
 
-void setHotSwapEnable(bool hotSwapEnable)
+void MosfetMatrix::setHotSwapEnable()
 {
-    this.hotSwapEnable = hotSwapEnable;
+    this->hotSwapEnable = true;
 }

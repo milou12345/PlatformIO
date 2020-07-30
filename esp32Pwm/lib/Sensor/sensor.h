@@ -7,6 +7,7 @@ class Sensor
 private:
     int adcValue;
     byte pin;
+    int currentVal;
 public:
     Sensor(byte pin);
     void init();
