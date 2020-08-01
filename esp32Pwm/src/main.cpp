@@ -41,13 +41,6 @@ void setup()
   ledcAttachPin(pwmPin1, ledChannel);
   ledcAttachPin(pwmPin2, ledChannel);
 
-  //Inh Pin DC-Motor Control board
-  //pinMode(eneablePin, OUTPUT);
-  //digitalWrite(eneablePin, HIGH);
-
-  //Onboard LED output
-  pinMode(onboardLed, OUTPUT);
-
   //initialize the variables we're linked to for PID
   Input = currentSensor.getSensorValue();
 
