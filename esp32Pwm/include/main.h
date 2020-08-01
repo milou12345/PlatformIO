@@ -4,6 +4,7 @@
 #include "mosfet.h"
 #include "MosfetMatrix.h"
 #include "sensor.h"
+#include "shopper.h"
 // Defines
 #define PIN_INPUT 13 //Current Mesaurment
 #define pwmPin1 23   //PWM Output 1

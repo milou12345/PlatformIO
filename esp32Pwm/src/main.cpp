@@ -2,35 +2,32 @@
 #define pwm 200
 #define tasterPin 5
 //Define Variables we'll be connecting to
-double Setpoint = sollwert, Input, Output;
-bool hotSwapEnable = 0;
-//Specify the links and initial tuning parameters
-double Kp = 0.1, Ki = 0.2, Kd = 0;
-PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
+double Input;
+shopper myCuteShopShop(pwmPin1,freq);
 MosfetMatrix matrix(mosfet1Pin, mosfet2Pin);
-Sensor currentSensor(PIN_INPUT);
+Sensor currentSensor(PIN_INPUT,8);
 
-int hotSwap(double currentMeasure)
-{ // Function for the HotSwap event
-  if (hotSwapEnable == true)
-  {
-    if ((currentMeasure <= hotSwapLimit))
-    {
-      // Switch Mosfets for Hotswap
-      matrix.switchToPS2();
+// int hotSwap(double currentMeasure)
+// { // Function for the HotSwap event
+//   if (hotSwapEnable == true)
+//   {
+//     if ((currentMeasure <= hotSwapLimit))
+//     {
+//       // Switch Mosfets for Hotswap
+//       matrix.switchToPS2();
 
-      // PWM to 100% till current rises to wanted value
-      do
-      {
-        ledcWrite(ledChannel, maxPwm);
-      } while (analogRead(PIN_INPUT) <= sollwert);
-      hotSwapEnable = false;
-      return 1;
-    }
-  }
-  return 0;
-}
+//       // PWM to 100% till current rises to wanted value
+//       do
+//       {
+//         ledcWrite(ledChannel, maxPwm);
+//       } while (analogRead(PIN_INPUT) <= sollwert);
+//       hotSwapEnable = false;
+//       return 1;
+//     }
+//   }
+//   return 0;
+// }
 
 void setup()
 {
@@ -44,12 +41,8 @@ void setup()
   //initialize the variables we're linked to for PID
   Input = currentSensor.getSensorValue();
 
-  //turn the PID on
-  myPID.SetMode(AUTOMATIC);
-  myPID.SetResolution(MICROS);
-  myPID.SetSampleTime(SampleTime);
-
   pinMode(tasterPin,INPUT);
+  
 }
 
 void loop()
@@ -60,10 +53,9 @@ void loop()
   if (hotSwapEnable == true)
     digitalWrite(onboardLed, HIGH); */
 
-  Input = currentSensor.getSensorValue();
-  myPID.Compute();
-  //Wirte pwm
-  ledcWrite(ledChannel, Output);
+
+ Input = currentSensor.getSensorValue();
+
   if (digitalRead(tasterPin)==true)
   {
     matrix.switchToPS1();
@@ -72,8 +64,10 @@ void loop()
     matrix.switchToPS2();
   }
   
-  
+  myCuteShopShop.PidControll(&Input,&Setpoint);
+  myCuteShopShop.setDutyCyle(pwm);
 
-  //ADCFilter.Filter(sensVal);
+
+
   //hotSwap(Input);
 }
