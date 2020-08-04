@@ -2,7 +2,6 @@
 #define PIN_INPUT 13 //Current Mesaurment
 #define pwmPin1 23   //PWM Output 1
 #define pwmPin2 14   //PWM Output 1
-#define SAMPLE_TIME 200  //Current Measurment periodic in microseconds 
 #define ledChannel 0
 #define PWM_RESOLUTION 8
 #define eneablePin 12
@@ -15,4 +14,4 @@
 #define onboardLed 2
 #define VDD 3.3
 #define hotSwapLimit 100
-
+#define SAMPLE_TIME 200
