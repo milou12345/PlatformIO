@@ -12,7 +12,8 @@ private:
     double Setpoint, Input, Output;
     double Kp, Ki, Kd;
     byte pwmPin;    // Pin für Ausgabe der PWM
-    PID currentPID; //PID controler
+    PID currentPID(double* Input, double* Output, double* Setpoint,
+        double Kp, double Ki, double Kd, int ControllerDirection); //PID controler
 public:
     shopper(byte pwmPin, int freq);
     void init();

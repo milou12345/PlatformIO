@@ -1,8 +1,7 @@
 #include "main.h"
 #include "Arduino.h"
 #define pwm 200
-#define tasterPin 5
-//Define Variables we'll be connecting to
+
 
 double Input, Setpoint;
 shopper myCuteShopShop(pwmPin1, PWM_FREQ);
