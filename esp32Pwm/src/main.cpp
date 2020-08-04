@@ -1,12 +1,13 @@
 #include "main.h"
+#include "Arduino.h"
 #define pwm 200
 #define tasterPin 5
 //Define Variables we'll be connecting to
 
-double Input;
-shopper myCuteShopShop(pwmPin1,freq);
+double Input, Setpoint;
+shopper myCuteShopShop(pwmPin1, PWM_FREQ);
 MosfetMatrix matrix(mosfet1Pin, mosfet2Pin);
-Sensor currentSensor(PIN_INPUT,8);
+Sensor currentSensor(PIN_INPUT, 8);
 
 // int hotSwap(double currentMeasure)
 // { // Function for the HotSwap event
@@ -31,43 +32,22 @@ Sensor currentSensor(PIN_INPUT,8);
 
 void setup()
 {
-  // configure LED PWM functionalitites
-  ledcSetup(ledChannel, freq, resolution);
-
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(pwmPin1, ledChannel);
-  ledcAttachPin(pwmPin2, ledChannel);
-
   //initialize the variables we're linked to for PID
-  Input = currentSensor.getSensorValue();
-
-  pinMode(tasterPin,INPUT);
-  
+  Input = currentSensor.getCurrentSensed();
 }
 
 void loop()
 {
-  //Aktivatew HotSwap with switch
+  //Aktivate HotSwap with switch
   /* if (digitalRead(hotSwapEnablePin) == true)
     hotSwapEnable = true;
   if (hotSwapEnable == true)
     digitalWrite(onboardLed, HIGH); */
 
+  Input = currentSensor.getCurrentSensed();
 
- Input = currentSensor.getSensorValue();
-
-  if (digitalRead(tasterPin)==true)
-  {
-    matrix.switchToPS1();
-  }else
-  {
-    matrix.switchToPS2();
-  }
-  
-  myCuteShopShop.PidControll(&Input,&Setpoint);
+  myCuteShopShop.PidControll(&Input, &Setpoint);
   myCuteShopShop.setDutyCyle(pwm);
-
-
 
   //hotSwap(Input);
 }

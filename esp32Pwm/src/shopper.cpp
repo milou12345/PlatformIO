@@ -9,7 +9,7 @@ shopper::shopper(byte pwmPin, int freq)
 void shopper::init()
 {
     // configure LED PWM functionalitites
-    ledcSetup(ledChannel, freq, resolution);
+    ledcSetup(ledChannel, freq, PWM_RESOLUTION);
     ledcAttachPin(pwmPin, ledChannel);
     Kp = 0;
     Ki = 0;
@@ -17,10 +17,10 @@ void shopper::init()
     Setpoint = 0;
     Input = 0;
     Output = 0;
-    PID curentPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
-    curentPID.SetMode(AUTOMATIC);
-    curentPID.SetResolution(MICROS);
-    curentPID.SetSampleTime(SampleTime);
+    PID currentPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+    currentPID.SetMode(AUTOMATIC);
+    currentPID.SetResolution(MICROS);
+    currentPID.SetSampleTime(SampleTime);
     dutyCyle = 0;
 }
 
@@ -33,7 +33,7 @@ void shopper::setDutyCyle(byte dutyCyle)
 void shopper::PidControll(double *Input, double *Setpoint)
 {
 
-    myPID.Compute();
+    this->currentPID.Compute();
     //Wirte pwm
     ledcWrite(ledChannel, Output);
 }
