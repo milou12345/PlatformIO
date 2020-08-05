@@ -2,7 +2,7 @@
 #define __MOSFETMATRIX_H__
 #include <Arduino.h>
 #include <mosfet.h>
-
+#include "../Arduino-PID-Library/PID_v1.h"
 class MosfetMatrix
 {
 private:
@@ -19,7 +19,6 @@ public:
     byte getSwitchPos();
     bool getHotSwapEnable();
     void setHotSwapEnable();
-
 };
 
 #endif // __MOSFETMATRIX_H__

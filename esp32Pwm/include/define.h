@@ -6,7 +6,7 @@
 #define PWM_RESOLUTION 8
 #define eneablePin 12
 #define maxPwm pow(2, RESOLUTION)
-#define mosfet1Pin 4 
+#define mosfet1Pin 4
 #define mosfet2Pin 10
 #define sollwert 50
 #define PWM_FREQ 100000
@@ -14,4 +14,4 @@
 #define onboardLed 2
 #define VDD 3.3
 #define hotSwapLimit 100
-#define SAMPLE_TIME 200
+#define SAMPLE_TIME 1

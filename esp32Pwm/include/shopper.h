@@ -1,7 +1,7 @@
 #ifndef __SHOPPER_H__
 #define __SHOPPER_H__
 #include "Arduino.h"
-#include "../lib/PID_fast/Arduino-PID-Library/PID_v1/PID_v1.h"
+#include "../lib/Arduino-PID-Library/PID_v1.h"
 #include "define.h"
 
 class shopper
@@ -12,7 +12,7 @@ private:
     double Setpoint, Input, Output;
     double Kp, Ki, Kd;
     byte pwmPin;    // Pin für Ausgabe der PWM
-    PID * currentPID = nullptr; //PID controler
+    PID currentPID; //PID controller
 public:
     shopper(byte pwmPin, int freq);
     void init();
