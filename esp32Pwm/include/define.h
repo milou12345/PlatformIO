@@ -8,10 +8,15 @@
 #define maxPwm pow(2, RESOLUTION)
 #define mosfet1Pin 4
 #define mosfet2Pin 10
-#define sollwert 50
+
 #define PWM_FREQ 100000
 #define hotSwapEnablePin 9
 #define onboardLed 2
 #define VDD 3.3
 #define hotSwapLimit 100
 #define SAMPLE_TIME 1
+//Shopper
+#define KP 1
+#define KI 1
+#define KD 0
+#define SETPOINT 10

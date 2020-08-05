@@ -2,8 +2,7 @@
 #include "Arduino.h"
 #define pwm 200
 
-
-double Input, Setpoint;
+double Input;
 shopper myCuteShopShop(pwmPin1, PWM_FREQ);
 MosfetMatrix matrix(mosfet1Pin, mosfet2Pin);
 Sensor currentSensor(PIN_INPUT, 8);
@@ -33,6 +32,10 @@ void setup()
 {
   //initialize the variables we're linked to for PID
   Input = currentSensor.getCurrentSensed();
+
+  //Initialize PID for shopper 
+  myCuteShopShop.PidInit(&Input, SETPOINT, KP, KI, KD);
+
 }
 
 void loop()
@@ -45,8 +48,9 @@ void loop()
 
   Input = currentSensor.getCurrentSensed();
 
-  myCuteShopShop.PidControll(&Input, &Setpoint);
-  myCuteShopShop.setDutyCyle(pwm);
+  
+  myCuteShopShop.PidCompute();
 
-  //hotSwap(Input);
+
+  
 }
