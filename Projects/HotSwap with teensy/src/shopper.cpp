@@ -32,7 +32,7 @@ void shopper::PidCompute()
 
     currentPID.Compute();
     //Wirte pwm
-    analogWriteFrequency(pwmPin, freq)
+    analogWrite(pwmPin, Output);
 }
 
 void shopper::PidInit(double *const &Input, double Setpoint,
