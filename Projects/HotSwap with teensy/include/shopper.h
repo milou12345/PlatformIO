@@ -1,7 +1,7 @@
 #ifndef __SHOPPER_H__
 #define __SHOPPER_H__
 #include "Arduino.h"
-#include "../lib/Arduino-PID-Library/PID_v1.h"
+#include "PID_v1.h"
 #include "define.h"
 
 class shopper

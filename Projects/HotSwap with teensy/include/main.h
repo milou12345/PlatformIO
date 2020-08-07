@@ -2,6 +2,6 @@
 #include "MosfetMatrix.h"
 #include "sensor.h"
 #include "shopper.h"
-#include "../lib/Arduino-PID-Library/PID_v1.h"
+#include "PID_v1.h"
 #include "Buttons.h"
 #include "LED.h"
