@@ -7,15 +7,17 @@ class MosfetMatrix
 {
 private:
     bool hotSwapEnable;
-    Mosfet mos1;
-    Mosfet mos2;
+
     byte switchPosition; // Which switch combination is conduction
 
 public:
+    Mosfet mos1;
+    Mosfet mos2;
     MosfetMatrix(byte pin1, byte pin2);
     void switchPS();
     void switchToPS1();
     void switchToPS2();
+    
     byte getSwitchPos();
     bool getHotSwapEnable();
     void setHotSwapEnable();

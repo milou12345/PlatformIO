@@ -21,7 +21,9 @@ MosfetMatrix::MosfetMatrix(byte pin1, byte pin2)
 
 void MosfetMatrix::switchPS()
 {
-    switch (mos1.getState())
+    if (mos1.getState()!=mos2.getState())
+    {
+         switch (mos1.getState())
     {
 
     case 0:
@@ -38,6 +40,9 @@ void MosfetMatrix::switchPS()
     default:
         break;
     }
+    }
+    
+   
 }
 
 void MosfetMatrix::switchToPS1()
@@ -53,6 +58,7 @@ void MosfetMatrix::switchToPS2()
     mos2.switchOn();
     switchPosition = 0;
 }
+
 
 byte MosfetMatrix::getSwitchPos()
 {

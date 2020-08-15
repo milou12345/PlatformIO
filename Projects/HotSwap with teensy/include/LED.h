@@ -5,12 +5,12 @@ class LED
 {
 private:
     byte status;
-    bool pin;
+    byte pin;
 
 public:
     LED(byte pin);
     void switchOn();
-    void switchOFf();
+    void switchOff();
     void changeState();
     bool getStatus();
 };

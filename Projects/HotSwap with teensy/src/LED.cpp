@@ -3,20 +3,26 @@
 LED::LED(byte pin)
 {
     this->pin = pin;
-    pinMode(pin, OUTPUT);
-    status = 0;
+    pinMode(this->pin, OUTPUT);
+    this->status = 0;
 }
 
 void LED::switchOn()
 {
-    status = 1;
-    digitalWrite(pin, HIGH);
+    if (this->status == 0)
+    {
+        this->status = 1;
+        digitalWrite(this->pin, HIGH);
+    }
 }
 
-void LED::switchOFf()
+void LED::switchOff()
 {
-    status = 0;
-    digitalWrite(pin, status);
+    if (status == 1)
+    {
+        status = 0;
+        digitalWrite(pin, LOW);
+    }
 }
 
 void LED::changeState()
@@ -24,7 +30,7 @@ void LED::changeState()
     switch (status)
     {
     case 1:
-        switchOFf();
+        switchOff();
 
         break;
 
